@@ -1,0 +1,2055 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Structured Programming - Coding Practice</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2196F3;
+            --success-color: #4CAF50;
+            --error-color: #f44336;
+            --warning-color: #ff9800;
+            --text-color: #333;
+            --bg-color: #f5f5f5;
+            --card-bg: #ffffff;
+            --border-color: #ddd;
+        }
+
+        [data-theme="dark"] {
+            --primary-color: #64B5F6;
+            --success-color: #81C784;
+            --error-color: #EF5350;
+            --warning-color: #FFB74D;
+            --text-color: #E0E0E0;
+            --bg-color: #1a1a1a;
+            --card-bg: #2d2d2d;
+            --border-color: #404040;
+        }
+
+        * {
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        :root {
+            --primary-color: #2196F3;
+            --success-color: #4CAF50;
+            --error-color: #f44336;
+            --warning-color: #ff9800;
+            --text-color: #333;
+            --bg-color: #f5f5f5;
+            --card-bg: #ffffff;
+            --border-color: #ddd;
+        }
+
+        [data-theme="dark"] {
+            --primary-color: #64B5F6;
+            --success-color: #81C784;
+            --error-color: #EF5350;
+            --warning-color: #FFB74D;
+            --text-color: #E0E0E0;
+            --bg-color: #1a1a1a;
+            --card-bg: #2d2d2d;
+            --border-color: #404040;
+        }
+
+        * {
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 5px;
+            flex: 1;
+        }
+
+        header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .theme-toggle {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5em;
+            transition: all 0.3s ease;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 1024px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .panel {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .panel-title {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 10px;
+        }
+
+        .question-box {
+            background: #f9f9f9;
+            border-left: 4px solid var(--primary-color);
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+
+        .question-box h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .question-box p {
+            margin-bottom: 8px;
+        }
+
+        .io-section {
+            margin-bottom: 15px;
+        }
+
+        .io-label {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+
+        .io-content {
+            background: #f0f0f0;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            word-wrap: break-word;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            resize: vertical;
+            min-height: 300px;
+            margin-bottom: 15px;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 5px rgba(33, 150, 243, 0.3);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 12px 25px;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            flex: 1;
+            min-width: 150px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .btn-check {
+            background: var(--success-color);
+            color: white;
+        }
+
+        .btn-check:hover {
+            background: #45a049;
+        }
+
+        .btn-solution {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-solution:hover {
+            background: #1976D2;
+        }
+
+        .btn-reset {
+            background: #999;
+            color: white;
+        }
+
+        .btn-reset:hover {
+            background: #777;
+        }
+
+        .result-box {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 4px;
+            display: none;
+        }
+
+        .result-box.show {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .result-box.success {
+            background: #d4edda;
+            border: 2px solid var(--success-color);
+            color: #155724;
+        }
+
+        .result-box.error {
+            background: #f8d7da;
+            border: 2px solid var(--error-color);
+            color: #721c24;
+        }
+
+        .result-box.warning {
+            background: #fff3cd;
+            border: 2px solid var(--warning-color);
+            color: #856404;
+        }
+
+        .result-title {
+            font-weight: bold;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+
+        .result-message {
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+        .solution-box {
+            background: #e8f5e9;
+            border: 2px solid var(--success-color);
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 15px;
+            display: none;
+        }
+
+        .solution-box.show {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+
+        .solution-code {
+            background: #1e1e1e;
+            padding: 20px;
+            border-radius: 6px;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            overflow-x: auto;
+            margin-top: 10px;
+            font-size: 14px;
+            color: #d4d4d4;
+            border: 1px solid #3e3e42;
+            line-height: 1.7;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .code-line {
+            display: flex;
+            padding: 0;
+        }
+
+        .line-number {
+            display: inline-block;
+            width: 50px;
+            text-align: right;
+            margin-right: 20px;
+            color: #6f7279;
+            user-select: none;
+            flex-shrink: 0;
+            border-right: 1px solid #3e3e42;
+            padding-right: 15px;
+        }
+
+        .line-content {
+            flex: 1;
+            white-space: pre;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+        }
+
+        .keyword {
+            color: #569cd6;
+            font-weight: 600;
+        }
+
+        .string {
+            color: #ce9178;
+        }
+
+        .number {
+            color: #b5cea8;
+        }
+
+        .comment {
+            color: #6a9955;
+            font-style: italic;
+        }
+        
+        .method {
+            color: #dcdcaa;
+        }
+        
+        .namespace {
+            color: #4ec9b0;
+        }
+
+        .question-nav {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            padding: 8px 15px;
+            background: #e0e0e0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .nav-btn.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .output-display {
+            background: #1e1e1e;
+            color: #00ff00;
+            padding: 12px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            min-height: 50px;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+
+        .input-display {
+            background: #f0f0f0;
+            color: #333;
+            padding: 12px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            margin: 10px 0;
+        }
+
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .comparison-item {
+            background: #f9f9f9;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+        }
+
+        .comparison-label {
+            font-weight: bold;
+            font-size: 0.9em;
+            color: var(--text-color);
+            margin-bottom: 5px;
+        }
+
+        .comparison-value {
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            background: #f0f0f0;
+            padding: 8px;
+            border-radius: 3px;
+            word-break: break-all;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            border-top: 1px solid var(--border-color);
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div style="flex: 1; text-align: center;">
+            <h1>🎓 Structured Programming</h1>
+            <p>Interactive Coding Practice Platform</p>
+        </div>
+        <button class="theme-toggle" id="themeToggle" title="Toggle Dark Mode">🌙</button>
+    </header>
+
+    <div class="container">
+        <div class="question-nav" id="questionNav"></div>
+
+        <div class="main-content">
+            <!-- Question Panel -->
+            <div class="panel">
+                <div class="panel-title">📝 Question</div>
+                <div class="question-box">
+                    <h3 id="questionTitle"></h3>
+                    <p id="questionDescription"></p>
+                </div>
+
+                <div class="io-section">
+                    <div class="io-label">📥 Input:</div>
+                    <div class="input-display" id="inputDisplay"></div>
+                </div>
+
+                <div class="io-section">
+                    <div class="io-label">📤 Expected Output:</div>
+                    <div class="output-display" id="expectedOutputDisplay"></div>
+                </div>
+
+                <div class="io-section">
+                    <h4>📋 Task Description:</h4>
+                    <p id="taskDescription"></p>
+                </div>
+            </div>
+
+            <!-- Code Panel -->
+            <div class="panel">
+                <div class="panel-title">💻 Your Code</div>
+                <textarea id="codeInput" placeholder="Write your C# code here..."></textarea>
+
+                <div class="button-group">
+                    <button class="btn-check" onclick="checkAnswer()">✔ Check Answer</button>
+                    <button class="btn-solution" onclick="showSolution()">💡 Show Solution</button>
+                    <button class="btn-reset" onclick="resetCode()">🔄 Reset</button>
+                </div>
+
+                <!-- Result Display -->
+                <div class="result-box" id="resultBox">
+                    <div class="result-title" id="resultTitle"></div>
+                    <div class="result-message" id="resultMessage"></div>
+                </div>
+
+                <!-- Solution Display -->
+                <div class="solution-box" id="solutionBox">
+                    <strong style="color: var(--success-color);">✓ Solution:</strong>
+                    <div class="solution-code" id="solutionCode"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; max-width: 400px; margin-left: auto; margin-right: auto;">
+            <div style="background: #e3f2fd; padding: 15px; border-radius: 8px; text-align: center; border: 2px solid #2196F3;">
+                <div style="font-size: 0.9em; color: #666; margin-bottom: 8px; font-weight: 600;">👥 Total Visitors</div>
+                <div style="font-size: 2em; font-weight: bold; color: #2196F3;" id="totalVisitors">0</div>
+            </div>
+            <div style="background: #e8f5e9; padding: 15px; border-radius: 8px; text-align: center; border: 2px solid #4CAF50;">
+                <div style="font-size: 0.9em; color: #666; margin-bottom: 8px; font-weight: 600;">🟢 Active Now</div>
+                <div style="font-size: 2em; font-weight: bold; color: #4CAF50;" id="activeUsers">0</div>
+            </div>
+        </div>
+        <p style="text-align: center; color: #999; font-size: 0.9em;">&copy; 2024 Structured Programming Learning Platform - New Mansoura University</p>
+    </footer>
+
+    <script>
+        // Question Database
+        const questions = [
+            {
+                id: 1,
+                title: "Model A1: Descending Number Pattern",
+                description: "Print a descending number pattern",
+                input: "None",
+                expectedOutput: "9 8 7 6\\n5 4 3\\n2 1\\n0",
+                taskDescription: "Write a C# program to print the following pattern using nested for loops:\\n9 8 7 6\\n5 4 3\\n2 1\\n0",
+                solution: `using System;
+namespace DescendingPattern
+{
+    class Program
+    {
+        static void Main()
+        {
+            int num = 9;
+            for (int row = 1; row <= 4; row++)
+            {
+                for (int col = 1; col <= 5 - row; col++)
+                {
+                    Console.Write(num + " ");
+                    num--;
+                }
+                Console.WriteLine();
+            }
+        }
+    }
+}`
+            },
+            {
+                id: 2,
+                title: "Model B1: Array Modification",
+                description: "Modify array elements based on value",
+                input: "Array: 1 7 5 4 8 2 6 9 10",
+                expectedOutput: "1 10 8 7 11 5 9 12 13",
+                taskDescription: "Define an array with values [1 7 5 4 8 2 6 9 10]. Decrease elements >= 6 by 1 and increase elements < 6 by 3 using a loop.",
+                solution: `using System;
+namespace ArrayModification
+{
+    class Program
+    {
+        static void Main()
+        {
+            int[] arr = {1, 7, 5, 4, 8, 2, 6, 9, 10};
+            for (int i = 0; i < arr.Length; i++)
+            {
+                if (arr[i] >= 6)
+                    arr[i]--;
+                else
+                    arr[i] += 3;
+            }
+            foreach (int num in arr)
+                Console.Write(num + " ");
+        }
+    }
+}`
+            },
+            {
+                id: 3,
+                title: "Model A2: 2D Array Filtering",
+                description: "Filter 2D array elements by condition",
+                input: "2D Array: [[22, 16, 90], [37, 18, 50]]",
+                expectedOutput: "22 90 37 50",
+                taskDescription: "Define a 2D array. Print elements > 25 and divisible by 2 OR elements < 25 and divisible by 3.",
+                solution: `using System;
+namespace TwoDArrayFilter
+{
+    class Program
+    {
+        static void Main()
+        {
+            int[,] arr = {{22, 16, 90}, {37, 18, 50}};
+            for (int i = 0; i < 2; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    if ((arr[i,j] > 25 && arr[i,j] % 2 == 0) || 
+                        (arr[i,j] < 25 && arr[i,j] % 3 == 0))
+                        Console.Write(arr[i,j] + " ");
+                }
+            }
+        }
+    }
+}`
+            },
+            {
+                id: 4,
+                title: "Model B2: Two Array Sum Operation",
+                description: "Sum corresponding elements and multiply by 3",
+                input: "Array 1: [a, b, c], Array 2: [x, y, z]",
+                expectedOutput: "Array 3: [(a+x)*3, (b+y)*3, (c+z)*3]",
+                taskDescription: "Create 2 arrays with 3 elements from user. Create third array with sum of corresponding elements multiplied by 3.",
+                solution: `using System;
+namespace TwoArraySum
+{
+    class Program
+    {
+        static void Main()
+        {
+            int[] arr1 = new int[3];
+            int[] arr2 = new int[3];
+            int[] arr3 = new int[3];
+            
+            for (int i = 0; i < 3; i++)
+            {
+                Console.Write("Array1[" + i + "]: ");
+                arr1[i] = int.Parse(Console.ReadLine());
+            }
+            for (int i = 0; i < 3; i++)
+            {
+                Console.Write("Array2[" + i + "]: ");
+                arr2[i] = int.Parse(Console.ReadLine());
+            }
+            for (int i = 0; i < 3; i++)
+                arr3[i] = (arr1[i] + arr2[i]) * 3;
+            
+            foreach (int num in arr3)
+                Console.Write(num + " ");
+        }
+    }
+}`
+            },
+            {
+                id: 5,
+                title: "Model A3: Array Increment and Sum",
+                description: "Increment elements in range and sum them",
+                input: "Array: 18 70 33 12 56 30",
+                expectedOutput: "Elements between 15-25 after increment: 20\\nSum: 20",
+                taskDescription: "Define array [18 70 33 12 56 30]. Increase elements between 15-25 by 2, then print sum. Use foreach.",
+                solution: `using System;
+namespace ArrayIncrementSum
+{
+    class Program
+    {
+        static void Main()
+        {
+            int[] arr = {18, 70, 33, 12, 56, 30};
+            int sum = 0;
+            
+            for (int i = 0; i < arr.Length; i++)
+            {
+                if (arr[i] >= 15 && arr[i] <= 25)
+                {
+                    arr[i] += 2;
+                    sum += arr[i];
+                }
+            }
+            
+            Console.Write("Result: ");
+            foreach (int num in arr)
+                Console.Write(num + " ");
+            Console.WriteLine();
+            Console.WriteLine("Sum: " + sum);
+        }
+    }
+}`
+            },
+            {
+                id: 6,
+                title: "Model B3: Square Root of Divisible",
+                description: "Print square root of elements divisible by 3 but not 2",
+                input: "Array: 33 67 95 90 56 36",
+                expectedOutput: "sqrt(33) sqrt(95)",
+                taskDescription: "Define array [33 67 95 90 56 36]. Print square root of elements divisible by 3 but not 2.",
+                solution: `using System;
+namespace SqrtDivisible
+{
+    class Program
+    {
+        static void Main()
+        {
+            int[] arr = {33, 67, 95, 90, 56, 36};
+            
+            for (int i = 0; i < arr.Length; i++)
+            {
+                if (arr[i] % 3 == 0 && arr[i] % 2 != 0)
+                    Console.WriteLine(Math.Sqrt(arr[i]));
+            }
+        }
+    }
+}`
+            },
+            {
+                id: 7,
+                title: "Model A4: Array Increment with Exception",
+                description: "Copy array with increment except for second element",
+                input: "Array: 72 101 108 108 111",
+                expectedOutput: "Original: 72 101 108 108 111\\nModified: 78 101 114 114 117",
+                taskDescription: "Create array [72 101 108 108 111]. Copy to new array with +6, except 2nd element stays same.",
+                solution: `using System;
+namespace ArrayIncrementException
+{
+    class Program
+    {
+        static void Main()
+        {
+            int[] arr1 = {72, 101, 108, 108, 111};
+            int[] arr2 = new int[5];
+            
+            Console.Write("Original: ");
+            foreach (int num in arr1)
+                Console.Write(num + " ");
+            Console.WriteLine();
+            
+            for (int i = 0; i < arr1.Length; i++)
+            {
+                if (i == 1)
+                    arr2[i] = arr1[i];
+                else
+                    arr2[i] = arr1[i] + 6;
+            }
+            
+            Console.Write("Modified: ");
+            foreach (int num in arr2)
+                Console.Write(num + " ");
+        }
+    }
+}`
+            },
+            {
+                id: 8,
+                title: "Model B4: Index-based Increment",
+                description: "Increase elements by value based on index parity",
+                input: "Array: 1 2 3 4 5 6 7 9 10",
+                expectedOutput: "1 6 3 8 5 10 7 13 10",
+                taskDescription: "Array [1 2 3 4 5 6 7 9 10]. Increase odd index by 4, even index by 3.",
+                solution: `using System;
+namespace IndexBasedIncrement
+{
+    class Program
+    {
+        static void Main()
+        {
+            int[] arr = {1, 2, 3, 4, 5, 6, 7, 9, 10};
+            
+            for (int i = 0; i < arr.Length; i++)
+            {
+                if (i % 2 == 0)
+                    arr[i] += 3;
+                else
+                    arr[i] += 4;
+            }
+            
+            foreach (int num in arr)
+                Console.Write(num + " ");
+        }
+    }
+}`
+            },
+            {
+                id: 9,
+                title: "Model A5: 2D Array Min/Max",
+                description: "Find largest and smallest elements in 2D array",
+                input: "2D Array: [[22, 16, 90], [37, 18, 50]]",
+                expectedOutput: "Largest: 90\\nSmallest: 16",
+                taskDescription: "Define 2D array [[22, 16, 90], [37, 18, 50]]. Find and print largest and smallest elements.",
+                solution: `using System;
+namespace TwoDArrayMinMax
+{
+    class Program
+    {
+        static void Main()
+        {
+            int[,] arr = {{22, 16, 90}, {37, 18, 50}};
+            int max = arr[0,0];
+            int min = arr[0,0];
+            
+            for (int i = 0; i < 2; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    if (arr[i,j] > max)
+                        max = arr[i,j];
+                    if (arr[i,j] < min)
+                        min = arr[i,j];
+                }
+            }
+            
+            Console.WriteLine("Largest: " + max);
+            Console.WriteLine("Smallest: " + min);
+        }
+    }
+}`
+            },
+            {
+                id: 10,
+                title: "Model B5: Two Array Sum to Third",
+                description: "Sum corresponding elements from two arrays",
+                input: "Array 1: [a, b, c], Array 2: [x, y, z]",
+                expectedOutput: "Array 3: [a+x, b+y, c+z]",
+                taskDescription: "Create 2 arrays with 3 elements. Create third array with sum of corresponding elements.",
+                solution: `using System;
+namespace TwoArrayCorrespondingSum
+{
+    class Program
+    {
+        static void Main()
+        {
+            int[] arr1 = new int[3];
+            int[] arr2 = new int[3];
+            int[] arr3 = new int[3];
+            
+            for (int i = 0; i < 3; i++)
+            {
+                Console.Write("Array1[" + i + "]: ");
+                arr1[i] = int.Parse(Console.ReadLine());
+            }
+            for (int i = 0; i < 3; i++)
+            {
+                Console.Write("Array2[" + i + "]: ");
+                arr2[i] = int.Parse(Console.ReadLine());
+            }
+            for (int i = 0; i < 3; i++)
+                arr3[i] = arr1[i] + arr2[i];
+            
+            foreach (int num in arr3)
+                Console.Write(num + " ");
+        }
+    }
+}`
+            },
+            {
+                id: 11,
+                title: "Model A6: Array Index Multiplication",
+                description: "Multiply each element by its index",
+                input: "Array: 18 70 33 12 56 30",
+                expectedOutput: "0 70 66 36 224 150",
+                taskDescription: "Array [18 70 33 12 56 30]. Multiply each element by its index. Print with foreach.",
+                solution: `using System;
+namespace IndexMultiplication
+{
+    class Program
+    {
+        static void Main()
+        {
+            int[] arr = {18, 70, 33, 12, 56, 30};
+            
+            for (int i = 0; i < arr.Length; i++)
+                arr[i] *= i;
+            
+            foreach (int num in arr)
+                Console.Write(num + " ");
+        }
+    }
+}`
+            },
+            {
+                id: 12,
+                title: "Model B6: Square Root Divisible by 3",
+                description: "Print square root of elements divisible by 3",
+                input: "Array: 33 67 95 90 56 36",
+                expectedOutput: "sqrt(33), sqrt(90), sqrt(36)",
+                taskDescription: "Array [33 67 95 90 56 36]. Print square root of elements divisible by 3.",
+                solution: `using System;
+namespace SqrtDiv3
+{
+    class Program
+    {
+        static void Main()
+        {
+            int[] arr = {33, 67, 95, 90, 56, 36};
+            
+            for (int i = 0; i < arr.Length; i++)
+            {
+                if (arr[i] % 3 == 0)
+                    Console.WriteLine(Math.Sqrt(arr[i]));
+            }
+        }
+    }
+}`
+            },
+            {
+                id: 13,
+                title: "Model A7: Array Swap First and Last",
+                description: "Swap first and last elements in array",
+                input: "Array: [a, b, c, d, e, f]",
+                expectedOutput: "f b c d e a",
+                taskDescription: "Read 6 integers. Swap first and last elements using loops. Print space-separated result.",
+                solution: `using System;
+namespace SwapFirstLast
+{
+    class Program
+    {
+        static void Main()
+        {
+            int[] arr = new int[6];
+            
+            for (int i = 0; i < 6; i++)
+            {
+                Console.Write("Element " + i + ": ");
+                arr[i] = int.Parse(Console.ReadLine());
+            }
+            
+            int temp = arr[0];
+            arr[0] = arr[5];
+            arr[5] = temp;
+            
+            foreach (int num in arr)
+                Console.Write(num + " ");
+        }
+    }
+}`
+            },
+            {
+                id: 14,
+                title: "Model B7: Count Occurrences",
+                description: "Count how many times element x appears",
+                input: "Array: 8 elements, x = value",
+                expectedOutput: "Count: n",
+                taskDescription: "Read 8 integers, then read value x. Count and print how many times x appears in array.",
+                solution: `using System;
+namespace CountOccurrences
+{
+    class Program
+    {
+        static void Main()
+        {
+            int[] arr = new int[8];
+            
+            for (int i = 0; i < 8; i++)
+            {
+                Console.Write("Element " + i + ": ");
+                arr[i] = int.Parse(Console.ReadLine());
+            }
+            
+            Console.Write("Enter value to count: ");
+            int x = int.Parse(Console.ReadLine());
+            
+            int count = 0;
+            for (int i = 0; i < 8; i++)
+            {
+                if (arr[i] == x)
+                    count++;
+            }
+            
+            Console.WriteLine("Count: " + count);
+        }
+    }
+}`
+            },
+            {
+                id: 15,
+                title: "Model A8: Replace Negative with Absolute",
+                description: "Replace negative values with absolute value",
+                input: "Array: 5 -3 0 -1 9 -2",
+                expectedOutput: "5 3 0 1 9 2",
+                taskDescription: "Read array [5 -3 0 -1 9 -2]. Replace any negative element with its absolute value.",
+                solution: `using System;
+namespace ReplaceNegative
+{
+    class Program
+    {
+        static void Main()
+        {
+            int[] arr = {5, -3, 0, -1, 9, -2};
+            
+            for (int i = 0; i < arr.Length; i++)
+            {
+                if (arr[i] < 0)
+                    arr[i] = Math.Abs(arr[i]);
+            }
+            
+            foreach (int num in arr)
+                Console.Write(num + " ");
+        }
+    }
+}`
+            },
+            {
+                id: 16,
+                title: "Model B8: Second Largest Element",
+                description: "Find the second largest distinct element",
+                input: "Array: 7 integers",
+                expectedOutput: "Second Largest: value",
+                taskDescription: "Read 7 integers. Find and print second largest element (next distinct lower value).",
+                solution: `using System;
+namespace SecondLargest
+{
+    class Program
+    {
+        static void Main()
+        {
+            int[] arr = new int[7];
+            
+            for (int i = 0; i < 7; i++)
+            {
+                Console.Write("Element " + i + ": ");
+                arr[i] = int.Parse(Console.ReadLine());
+            }
+            
+            int max = arr[0];
+            int secondMax = arr[0];
+            
+            for (int i = 0; i < 7; i++)
+            {
+                if (arr[i] > max)
+                {
+                    secondMax = max;
+                    max = arr[i];
+                }
+                else if (arr[i] > secondMax && arr[i] != max)
+                    secondMax = arr[i];
+            }
+            
+            Console.WriteLine("Second Largest: " + secondMax);
+        }
+    }
+}`
+            },
+            {
+                id: 17,
+                title: "Model A9: Even Index Elements",
+                description: "Print elements at even indices",
+                input: "Array: 10 integers",
+                expectedOutput: "Elements at indices 0, 2, 4, ...",
+                taskDescription: "Read 10 integers. Print elements at even indices (0,2,4,...) on same line separated by spaces.",
+                solution: `using System;
+namespace EvenIndexElements
+{
+    class Program
+    {
+        static void Main()
+        {
+            int[] arr = new int[10];
+            
+            for (int i = 0; i < 10; i++)
+            {
+                Console.Write("Element " + i + ": ");
+                arr[i] = int.Parse(Console.ReadLine());
+            }
+            
+            for (int i = 0; i < 10; i += 2)
+                Console.Write(arr[i] + " ");
+        }
+    }
+}`
+            },
+            {
+                id: 18,
+                title: "Model B9: 2D Column Sum",
+                description: "Sum columns from two rows",
+                input: "2D Array: [[2, 5, 6], [7, 8, 9]]",
+                expectedOutput: "9\\n13\\n15",
+                taskDescription: "2D array [[2, 5, 6], [7, 8, 9]]. Print sum of each column (one per line).",
+                solution: `using System;
+namespace TwoDColumnSum
+{
+    class Program
+    {
+        static void Main()
+        {
+            int[,] arr = {{2, 5, 6}, {7, 8, 9}};
+            
+            for (int j = 0; j < 3; j++)
+            {
+                int sum = arr[0,j] + arr[1,j];
+                Console.WriteLine(sum);
+            }
+        }
+    }
+}`
+            },
+            {
+                id: 19,
+                title: "Model C1: Duplicate Elements",
+                description: "Find elements that appear more than once",
+                input: "Array: 5 8 3 5 9 8 2 3 5 1",
+                expectedOutput: "5 8 3 (elements appearing > once)",
+                taskDescription: "Read array [5 8 3 5 9 8 2 3 5 1]. Print array, then print elements appearing more than once.",
+                solution: `using System;
+namespace DuplicateElements
+{
+    class Program
+    {
+        static void Main()
+        {
+            int[] arr = {5, 8, 3, 5, 9, 8, 2, 3, 5, 1};
+            
+            Console.Write("Array: ");
+            foreach (int num in arr)
+                Console.Write(num + " ");
+            Console.WriteLine();
+            
+            Console.Write("Duplicates: ");
+            for (int i = 0; i < arr.Length; i++)
+            {
+                int count = 0;
+                for (int j = 0; j < arr.Length; j++)
+                {
+                    if (arr[i] == arr[j])
+                        count++;
+                }
+                if (count > 1)
+                    Console.Write(arr[i] + " ");
+            }
+        }
+    }
+}`
+            },
+            {
+                id: 20,
+                title: "Model D1: Reverse Array Filter",
+                description: "Print array in reverse, filter by value",
+                input: "Array: 50 45 40 35 30 25 20 15 10",
+                expectedOutput: "10 15 20 25 30 (reverse > 20)",
+                taskDescription: "Array [50 45 40 35 30 25 20 15 10]. Print elements in reverse order, only if > 20.",
+                solution: `using System;
+namespace ReverseArrayFilter
+{
+    class Program
+    {
+        static void Main()
+        {
+            int[] arr = {50, 45, 40, 35, 30, 25, 20, 15, 10};
+            
+            for (int i = arr.Length - 1; i >= 0; i--)
+            {
+                if (arr[i] > 20)
+                    Console.Write(arr[i] + " ");
+            }
+        }
+    }
+}`
+            },
+            {
+                id: 21,
+                title: "Model C2: Range Filter",
+                description: "Print numbers in range [25, 75]",
+                input: "Array: 44 4 18 2 8 64 32 3 47 50 22 12",
+                expectedOutput: "44 64 32 47 50",
+                taskDescription: "Array [44 4 18 2 8 64 32 3 47 50 22 12]. Print only numbers between 25-75 (inclusive).",
+                solution: `using System;
+namespace RangeFilter
+{
+    class Program
+    {
+        static void Main()
+        {
+            int[] arr = {44, 4, 18, 2, 8, 64, 32, 3, 47, 50, 22, 12};
+            
+            foreach (int num in arr)
+            {
+                if (num >= 25 && num <= 75)
+                    Console.Write(num + " ");
+            }
+        }
+    }
+}`
+            },
+            {
+                id: 22,
+                title: "Model D2: Index of Maximum",
+                description: "Find index of first maximum element",
+                input: "n integers (n <= 12)",
+                expectedOutput: "Index: i",
+                taskDescription: "Read n (<=12) integers. Print index of first maximum element using single for loop.",
+                solution: `using System;
+namespace MaximumIndex
+{
+    class Program
+    {
+        static void Main()
+        {
+            Console.Write("Enter n: ");
+            int n = int.Parse(Console.ReadLine());
+            int[] arr = new int[n];
+            
+            for (int i = 0; i < n; i++)
+            {
+                Console.Write("Element " + i + ": ");
+                arr[i] = int.Parse(Console.ReadLine());
+            }
+            
+            int maxIndex = 0;
+            for (int i = 0; i < n; i++)
+            {
+                if (arr[i] > arr[maxIndex])
+                    maxIndex = i;
+            }
+            
+            Console.WriteLine("Index of Maximum: " + maxIndex);
+        }
+    }
+}`
+            },
+            {
+                id: 23,
+                title: "Model C3: Greater Than Average",
+                description: "Print elements greater than average",
+                input: "n integers (n <= 10)",
+                expectedOutput: "Elements > average (one per line)",
+                taskDescription: "Read n (<=10) integers. Compute average and print elements strictly greater than average.",
+                solution: `using System;
+namespace GreaterThanAverage
+{
+    class Program
+    {
+        static void Main()
+        {
+            Console.Write("Enter n: ");
+            int n = int.Parse(Console.ReadLine());
+            int[] arr = new int[n];
+            int sum = 0;
+            
+            for (int i = 0; i < n; i++)
+            {
+                Console.Write("Element " + i + ": ");
+                arr[i] = int.Parse(Console.ReadLine());
+                sum += arr[i];
+            }
+            
+            double avg = (double)sum / n;
+            
+            foreach (int num in arr)
+            {
+                if (num > avg)
+                    Console.WriteLine(num);
+            }
+        }
+    }
+}`
+            },
+            {
+                id: 24,
+                title: "Model D3: Ascending Number Pattern",
+                description: "Print ascending number pattern",
+                input: "None",
+                expectedOutput: "1\\n2 3\\n4 5 6\\n7 8 9 10",
+                taskDescription: "Print ascending number pattern using nested for loops:\\n1\\n2 3\\n4 5 6\\n7 8 9 10",
+                solution: `using System;
+namespace AscendingPattern
+{
+    class Program
+    {
+        static void Main()
+        {
+            int num = 1;
+            for (int row = 1; row <= 4; row++)
+            {
+                for (int col = 1; col <= row; col++)
+                {
+                    Console.Write(num + " ");
+                    num++;
+                }
+                Console.WriteLine();
+            }
+        }
+    }
+}`
+            },
+            {
+                id: 25,
+                title: "Model C4: Even and Odd Count",
+                description: "Count even and odd elements",
+                input: "8 integers",
+                expectedOutput: "Even: X\\nOdd: Y",
+                taskDescription: "Read 8 integers. Print count of even elements and count of odd elements.",
+                solution: `using System;
+namespace EvenOddCount
+{
+    class Program
+    {
+        static void Main()
+        {
+            int[] arr = new int[8];
+            int evenCount = 0, oddCount = 0;
+            
+            for (int i = 0; i < 8; i++)
+            {
+                Console.Write("Element " + i + ": ");
+                arr[i] = int.Parse(Console.ReadLine());
+                if (arr[i] % 2 == 0)
+                    evenCount++;
+                else
+                    oddCount++;
+            }
+            
+            Console.WriteLine("Even: " + evenCount);
+            Console.WriteLine("Odd: " + oddCount);
+        }
+    }
+}`
+            },
+            {
+                id: 26,
+                title: "Model D4: In-place Array Reverse",
+                description: "Reverse array without extra array",
+                input: "6 integers",
+                expectedOutput: "Reversed array (space-separated)",
+                taskDescription: "Read 6 integers. Reverse in-place using swaps. Print reversed array.",
+                solution: `using System;
+namespace InPlaceReverse
+{
+    class Program
+    {
+        static void Main()
+        {
+            int[] arr = new int[6];
+            
+            for (int i = 0; i < 6; i++)
+            {
+                Console.Write("Element " + i + ": ");
+                arr[i] = int.Parse(Console.ReadLine());
+            }
+            
+            for (int i = 0; i < 3; i++)
+            {
+                int temp = arr[i];
+                arr[i] = arr[5 - i];
+                arr[5 - i] = temp;
+            }
+            
+            foreach (int num in arr)
+                Console.Write(num + " ");
+        }
+    }
+}`
+            },
+            {
+                id: 27,
+                title: "Model C5: Odd Index Elements to New Array",
+                description: "Copy odd-indexed elements to new array",
+                input: "10 integers",
+                expectedOutput: "Elements at odd indices (one line)",
+                taskDescription: "Read 10 integers. Copy elements at odd indices to new array. Print in one line.",
+                solution: `using System;
+namespace OddIndexCopy
+{
+    class Program
+    {
+        static void Main()
+        {
+            int[] arr = new int[10];
+            
+            for (int i = 0; i < 10; i++)
+            {
+                Console.Write("Element " + i + ": ");
+                arr[i] = int.Parse(Console.ReadLine());
+            }
+            
+            int[] newArr = new int[5];
+            int idx = 0;
+            
+            for (int i = 1; i < 10; i += 2)
+                newArr[idx++] = arr[i];
+            
+            foreach (int num in newArr)
+                Console.Write(num + " ");
+        }
+    }
+}`
+            },
+            {
+                id: 28,
+                title: "Model D5: Even and Odd Index Sum",
+                description: "Sum elements at even and odd indices",
+                input: "8 integers",
+                expectedOutput: "Even Index Sum: X\\nOdd Index Sum: Y",
+                taskDescription: "Read 8 integers. Print sum of even-indexed and odd-indexed elements.",
+                solution: `using System;
+namespace EvenOddIndexSum
+{
+    class Program
+    {
+        static void Main()
+        {
+            int[] arr = new int[8];
+            int evenSum = 0, oddSum = 0;
+            
+            for (int i = 0; i < 8; i++)
+            {
+                Console.Write("Element " + i + ": ");
+                arr[i] = int.Parse(Console.ReadLine());
+                if (i % 2 == 0)
+                    evenSum += arr[i];
+                else
+                    oddSum += arr[i];
+            }
+            
+            Console.WriteLine("Even Index Sum: " + evenSum);
+            Console.WriteLine("Odd Index Sum: " + oddSum);
+        }
+    }
+}`
+            },
+            {
+                id: 29,
+                title: "Model C6: Count Increases",
+                description: "Count how many times value increases",
+                input: "8 integers",
+                expectedOutput: "Increases: n (number of times arr[i] > arr[i-1])",
+                taskDescription: "Read 8 integers. Count how many times array value increases compared to previous.",
+                solution: `using System;
+namespace CountIncreases
+{
+    class Program
+    {
+        static void Main()
+        {
+            int[] arr = new int[8];
+            
+            for (int i = 0; i < 8; i++)
+            {
+                Console.Write("Element " + i + ": ");
+                arr[i] = int.Parse(Console.ReadLine());
+            }
+            
+            int increases = 0;
+            for (int i = 1; i < 8; i++)
+            {
+                if (arr[i] > arr[i - 1])
+                    increases++;
+            }
+            
+            Console.WriteLine("Increases: " + increases);
+        }
+    }
+}`
+            },
+            {
+                id: 30,
+                title: "Model D6: Divisible by 6",
+                description: "Print elements divisible by both 2 and 3",
+                input: "8 integers",
+                expectedOutput: "Elements divisible by 6",
+                taskDescription: "Read 8 integers. Print only elements divisible by 6 (divisible by both 2 and 3).",
+                solution: `using System;
+namespace DivisibleBySix
+{
+    class Program
+    {
+        static void Main()
+        {
+            int[] arr = new int[8];
+            
+            for (int i = 0; i < 8; i++)
+            {
+                Console.Write("Element " + i + ": ");
+                arr[i] = int.Parse(Console.ReadLine());
+            }
+            
+            foreach (int num in arr)
+            {
+                if (num % 6 == 0)
+                    Console.Write(num + " ");
+            }
+        }
+    }
+}`
+            },
+            {
+                id: 31,
+                title: "Model C7: Range Filter Variant",
+                description: "Print numbers between 10 and 50",
+                input: "Array: 12 4 18 2 8 1 32 3 47 50",
+                expectedOutput: "12 18 32 47 50",
+                taskDescription: "Array [12 4 18 2 8 1 32 3 47 50]. Print numbers between 10-50 (inclusive).",
+                solution: `using System;
+namespace RangeFilterVariant
+{
+    class Program
+    {
+        static void Main()
+        {
+            int[] arr = {12, 4, 18, 2, 8, 1, 32, 3, 47, 50};
+            
+            foreach (int num in arr)
+            {
+                if (num >= 10 && num <= 50)
+                    Console.Write(num + " ");
+            }
+        }
+    }
+}`
+            },
+            {
+                id: 32,
+                title: "Model D7: Print and Filter",
+                description: "Print array then filter by threshold",
+                input: "Array: 3 10 18 8 4 43 25",
+                expectedOutput: "Array: 3 10 18 8 4 43 25\\nGreater than 15: 18 43 25",
+                taskDescription: "Array [3 10 18 8 4 43 25]. Print original array, then print elements > 15.",
+                solution: `using System;
+namespace PrintAndFilter
+{
+    class Program
+    {
+        static void Main()
+        {
+            int[] arr = {3, 10, 18, 8, 4, 43, 25};
+            
+            Console.Write("Array: ");
+            foreach (int num in arr)
+                Console.Write(num + " ");
+            Console.WriteLine();
+            
+            Console.Write("Greater than 15: ");
+            foreach (int num in arr)
+            {
+                if (num > 15)
+                    Console.Write(num + " ");
+            }
+        }
+    }
+}`
+            },
+            {
+                id: 33,
+                title: "Model C8: Even Numbers Sum",
+                description: "Print array and sum of even numbers",
+                input: "8 integers",
+                expectedOutput: "Array: ..., Sum of even: X",
+                taskDescription: "Read 8 integers. Print array, then print sum of all even numbers.",
+                solution: `using System;
+namespace EvenNumbersSum
+{
+    class Program
+    {
+        static void Main()
+        {
+            int[] arr = new int[8];
+            int sumEven = 0;
+            
+            for (int i = 0; i < 8; i++)
+            {
+                Console.Write("Element " + i + ": ");
+                arr[i] = int.Parse(Console.ReadLine());
+            }
+            
+            Console.Write("Array: ");
+            foreach (int num in arr)
+                Console.Write(num + " ");
+            Console.WriteLine();
+            
+            for (int i = 0; i < 8; i++)
+            {
+                if (arr[i] % 2 == 0)
+                    sumEven += arr[i];
+            }
+            
+            Console.WriteLine("Sum of even: " + sumEven);
+        }
+    }
+}`
+            },
+            {
+                id: 34,
+                title: "Model D8: Average Rounded",
+                description: "Print array and rounded average",
+                input: "10 integers",
+                expectedOutput: "Array: ..., Average: X (rounded)",
+                taskDescription: "Read 10 integers. Print array and average rounded to nearest integer.",
+                solution: `using System;
+namespace AverageRounded
+{
+    class Program
+    {
+        static void Main()
+        {
+            int[] arr = new int[10];
+            int sum = 0;
+            
+            for (int i = 0; i < 10; i++)
+            {
+                Console.Write("Element " + i + ": ");
+                arr[i] = int.Parse(Console.ReadLine());
+                sum += arr[i];
+            }
+            
+            Console.Write("Array: ");
+            foreach (int num in arr)
+                Console.Write(num + " ");
+            Console.WriteLine();
+            
+            int avg = (int)Math.Round((double)sum / 10);
+            Console.WriteLine("Average: " + avg);
+        }
+    }
+}`
+            },
+            {
+                id: 35,
+                title: "Model C9: Even vs Odd Sum Difference",
+                description: "Difference between sum of even and odd",
+                input: "8 integers",
+                expectedOutput: "Array: ..., Difference: X",
+                taskDescription: "Read 8 integers. Print array and difference between sum of even and odd elements.",
+                solution: `using System;
+namespace EvenOddDifference
+{
+    class Program
+    {
+        static void Main()
+        {
+            int[] arr = new int[8];
+            int sumEven = 0, sumOdd = 0;
+            
+            for (int i = 0; i < 8; i++)
+            {
+                Console.Write("Element " + i + ": ");
+                arr[i] = int.Parse(Console.ReadLine());
+                if (arr[i] % 2 == 0)
+                    sumEven += arr[i];
+                else
+                    sumOdd += arr[i];
+            }
+            
+            Console.Write("Array: ");
+            foreach (int num in arr)
+                Console.Write(num + " ");
+            Console.WriteLine();
+            
+            int diff = sumEven - sumOdd;
+            Console.WriteLine("Difference: " + diff);
+        }
+    }
+}`
+            },
+            {
+                id: 36,
+                title: "Model D9: Min and Max Values",
+                description: "Find and print max and min values",
+                input: "9 integers",
+                expectedOutput: "Array: ..., Maximum: X, Minimum: Y",
+                taskDescription: "Read 9 integers. Print array and both maximum and minimum values.",
+                solution: `using System;
+namespace MinMaxValues
+{
+    class Program
+    {
+        static void Main()
+        {
+            int[] arr = new int[9];
+            
+            for (int i = 0; i < 9; i++)
+            {
+                Console.Write("Element " + i + ": ");
+                arr[i] = int.Parse(Console.ReadLine());
+            }
+            
+            Console.Write("Array: ");
+            foreach (int num in arr)
+                Console.Write(num + " ");
+            Console.WriteLine();
+            
+            int max = arr[0], min = arr[0];
+            
+            for (int i = 1; i < 9; i++)
+            {
+                if (arr[i] > max)
+                    max = arr[i];
+                if (arr[i] < min)
+                    min = arr[i];
+            }
+            
+            Console.WriteLine("Maximum: " + max);
+            Console.WriteLine("Minimum: " + min);
+        }
+    }
+}`
+            }
+        ];
+
+        let currentQuestionId = 1;
+
+        // Initialize the platform
+        function init() {
+            renderQuestionNav();
+            loadQuestion(1);
+        }
+
+        // Render question navigation buttons
+        function renderQuestionNav() {
+            const nav = document.getElementById("questionNav");
+            nav.innerHTML = '<strong style="width: 100%; margin-bottom: 10px;">Select a Question:</strong>';
+            questions.forEach(q => {
+                const btn = document.createElement("button");
+                btn.className = `nav-btn ${q.id === 1 ? 'active' : ''}`;
+                btn.textContent = `Q${q.id}`;
+                btn.onclick = () => loadQuestion(q.id);
+                nav.appendChild(btn);
+            });
+        }
+
+        // Load a question
+        function loadQuestion(id) {
+            currentQuestionId = id;
+            const question = questions.find(q => q.id === id);
+
+            document.getElementById("questionTitle").textContent = question.title;
+            document.getElementById("questionDescription").textContent = question.description;
+            document.getElementById("inputDisplay").textContent = question.input;
+            document.getElementById("expectedOutputDisplay").textContent = question.expectedOutput;
+            document.getElementById("taskDescription").textContent = question.taskDescription;
+            document.getElementById("codeInput").value = "";
+            document.getElementById("resultBox").classList.remove("show");
+            document.getElementById("solutionBox").classList.remove("show");
+
+            // Update active button
+            document.querySelectorAll(".nav-btn").forEach(btn => btn.classList.remove("active"));
+            event.target.classList.add("active");
+        }
+
+        // Check user's answer
+        function checkAnswer() {
+            const code = document.getElementById("codeInput").value.trim();
+            const resultBox = document.getElementById("resultBox");
+
+            if (!code) {
+                showResult("error", "Code is Empty!", "Please write some code first.");
+                return;
+            }
+
+            const question = questions.find(q => q.id === currentQuestionId);
+
+            // Basic validation - check if code contains key elements
+            const hasConsoleWriteLine = code.includes("Console.WriteLine") || code.includes("WriteLine");
+            const hasMainMethod = code.includes("Main");
+
+            if (!hasConsoleWriteLine) {
+                showResult("error", "Missing Output Statement", 
+                    "Your code doesn't seem to output anything. Use Console.WriteLine() to print results.");
+                return;
+            }
+
+            if (!hasMainMethod) {
+                showResult("error", "Invalid Structure", 
+                    "Your code needs a Main() method. Check your code structure.");
+                return;
+            }
+
+            // Simulate checking based on question logic
+            const feedback = validateAnswer(code, question);
+            
+            if (feedback.isCorrect) {
+                showResult("success", "✓ Correct!", 
+                    "Excellent! Your code produces the correct output. Great job! 🎉");
+            } else {
+                showResult("error", "✗ Incorrect", 
+                    feedback.message);
+            }
+        }
+
+        // Validate answer based on code content
+        function validateAnswer(code, question) {
+            if (question.id === 1) {
+                return {
+                    isCorrect: code.includes("Hello World"),
+                    message: "Your code should print 'Hello World!' exactly."
+                };
+            } else if (question.id === 2) {
+                return {
+                    isCorrect: code.includes("ReadLine") && code.includes("+") && code.includes("int.Parse"),
+                    message: "Your code should read two integers, add them, and print the result."
+                };
+            } else if (question.id === 3) {
+                return {
+                    isCorrect: code.includes("if") && code.includes(">=") && code.includes("50") && 
+                              code.includes("Pass") && code.includes("Fail"),
+                    message: "Your code should check if score >= 50 and print 'Pass' or 'Fail'."
+                };
+            } else if (question.id === 4) {
+                return {
+                    isCorrect: code.includes("for") && code.includes("Console.WriteLine") && code.includes("<=") && code.includes("5"),
+                    message: "Use a for loop to print numbers 1 through 5."
+                };
+            } else if (question.id === 5) {
+                return {
+                    isCorrect: code.includes("for") && code.includes("+=") && code.includes("5"),
+                    message: "Use a loop with a sum variable to add 5 numbers from user input."
+                };
+            } else if (question.id === 6) {
+                return {
+                    isCorrect: code.includes("/") && code.includes("%"),
+                    message: "Your code should use / for division and % for remainder."
+                };
+            } else if (question.id === 7) {
+                return {
+                    isCorrect: code.includes("for") && code.match(/for.*for/) && code.includes("*"),
+                    message: "Use nested loops to print a 3x3 square pattern with asterisks."
+                };
+            } else if (question.id === 8) {
+                return {
+                    isCorrect: code.includes("for") && code.match(/for.*for/) && code.includes("*"),
+                    message: "Use nested loops where inner loop depends on row number for triangle pattern."
+                };
+            }
+            return { isCorrect: true, message: "" };
+        }
+
+        // Show result
+        function showResult(type, title, message) {
+            const resultBox = document.getElementById("resultBox");
+            resultBox.className = `result-box show ${type}`;
+            document.getElementById("resultTitle").textContent = title;
+            document.getElementById("resultMessage").textContent = message;
+        }
+
+        // Show solution
+        function showSolution() {
+            const question = questions.find(q => q.id === currentQuestionId);
+            const solutionBox = document.getElementById("solutionBox");
+            // Format the solution code with proper indentation and syntax highlighting
+            const formattedCode = formatCode(question.solution);
+            document.getElementById("solutionCode").innerHTML = formattedCode;
+            solutionBox.classList.add("show");
+        }
+
+        // Format code with VS-like styling
+        function formatCode(code) {
+            // Escape HTML characters
+            code = code.replace(/&/g, "&amp;")
+                      .replace(/</g, "&lt;")
+                      .replace(/>/g, "&gt;");
+            
+            // Add line numbers with proper indentation
+            const lines = code.split('\n');
+            let formatted = '';
+            lines.forEach((line, index) => {
+                // Preserve original indentation
+                const leadingSpaces = line.match(/^(\s*)/)[0];
+                const lineNum = String(index + 1).padStart(2, ' ');
+                const content = line.substring(leadingSpaces.length);
+                
+                formatted += `<div class="code-line"><span class="line-number">${lineNum}</span><span class="line-content">${leadingSpaces}${content}</span></div>`;
+            });
+            
+            return formatted;
+        }
+
+        // Reset code
+        function resetCode() {
+            document.getElementById("codeInput").value = "";
+            document.getElementById("resultBox").classList.remove("show");
+            document.getElementById("solutionBox").classList.remove("show");
+        }
+
+        // Analytics tracking
+        class Analytics {
+            constructor() {
+                this.storageKey = 'codingPlatformVisitors';
+                this.activeKey = 'codingPlatformActive';
+                this.initVisitors();
+                this.trackActivity();
+            }
+
+            initVisitors() {
+                let data = this.getStorageData(this.storageKey);
+                if (!data) {
+                    data = {
+                        total: 0,
+                        lastVisit: null,
+                        visits: []
+                    };
+                }
+                
+                // Increment total visitors (new session = new visit)
+                const now = new Date();
+                const today = now.toDateString();
+                
+                if (!data.lastVisit || new Date(data.lastVisit).toDateString() !== today) {
+                    data.total++;
+                    data.lastVisit = now.toISOString();
+                    data.visits.push({
+                        date: today,
+                        count: 1
+                    });
+                }
+                
+                this.saveStorageData(this.storageKey, data);
+                this.updateVisitorCount(data.total);
+            }
+
+            trackActivity() {
+                let activeData = this.getStorageData(this.activeKey);
+                if (!activeData) {
+                    activeData = { users: [] };
+                }
+
+                const sessionId = this.getOrCreateSessionId();
+                const now = Date.now();
+
+                // Add or update current user
+                activeData.users = activeData.users.filter(u => now - u.lastActive < 300000); // 5 min timeout
+                
+                const existingUser = activeData.users.find(u => u.id === sessionId);
+                if (existingUser) {
+                    existingUser.lastActive = now;
+                } else {
+                    activeData.users.push({
+                        id: sessionId,
+                        joinedAt: now,
+                        lastActive: now
+                    });
+                }
+
+                this.saveStorageData(this.activeKey, activeData);
+                this.updateActiveCount(activeData.users.length);
+
+                // Update every 10 seconds
+                setTimeout(() => this.trackActivity(), 10000);
+            }
+
+            getOrCreateSessionId() {
+                let sessionId = sessionStorage.getItem('sessionId');
+                if (!sessionId) {
+                    sessionId = 'user_' + Math.random().toString(36).substr(2, 9);
+                    sessionStorage.setItem('sessionId', sessionId);
+                }
+                return sessionId;
+            }
+
+            updateVisitorCount(count) {
+                document.getElementById('totalVisitors').textContent = count;
+            }
+
+            updateActiveCount(count) {
+                document.getElementById('activeUsers').textContent = count;
+            }
+
+            saveStorageData(key, data) {
+                try {
+                    localStorage.setItem(key, JSON.stringify(data));
+                } catch (e) {
+                    console.log('Storage full or disabled');
+                }
+            }
+
+            getStorageData(key) {
+                try {
+                    const data = localStorage.getItem(key);
+                    return data ? JSON.parse(data) : null;
+                } catch (e) {
+                    return null;
+                }
+            }
+        }
+
+        // Initialize analytics
+        const analytics = new Analytics();
+
+        // Initialize the platform
+        function init() {
+            renderQuestionNav();
+            loadQuestion(1);
+        }
+
+        // Dark Mode Handler
+        class ThemeManager {
+            constructor() {
+                this.themeKey = 'codingPlatformTheme';
+                this.initTheme();
+                this.setupToggle();
+            }
+
+            initTheme() {
+                // Check saved preference
+                let savedTheme = localStorage.getItem(this.themeKey);
+                
+                // If no preference, check system preference
+                if (!savedTheme) {
+                    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                    savedTheme = prefersDark ? 'dark' : 'light';
+                }
+                
+                this.setTheme(savedTheme);
+            }
+
+            setTheme(theme) {
+                if (theme === 'dark') {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                    document.getElementById('themeToggle').textContent = '☀️';
+                } else {
+                    document.documentElement.removeAttribute('data-theme');
+                    document.getElementById('themeToggle').textContent = '🌙';
+                }
+                localStorage.setItem(this.themeKey, theme);
+            }
+
+            setupToggle() {
+                const toggleBtn = document.getElementById('themeToggle');
+                toggleBtn.addEventListener('click', () => {
+                    const currentTheme = document.documentElement.getAttribute('data-theme');
+                    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                    this.setTheme(newTheme);
+                });
+            }
+
+            getCurrentTheme() {
+                return document.documentElement.getAttribute('data-theme') || 'light';
+            }
+        }
+
+        // Initialize theme manager
+        const themeManager = new ThemeManager();
+
+        // Initialize on load
+        window.onload = init;
+    </script>
+</body>
+</html>
